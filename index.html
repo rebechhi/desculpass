@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Posso falar com você</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      font-family: Arial, sans-serif;
+      background: #ffe0f0;
+      height: 100%;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 600px;
+      margin: 2rem auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      text-align: center;
+      z-index: 2;
+      position: relative;
+    }
+
+    h1, h2 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    button {
+      margin: 0.5rem 0.25rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #ff80ab;
+      border: none;
+      color: white;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+      width: 100%;
+      max-width: 250px;
+    }
+
+    button:hover {
+      background-color: #ff4081;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .notification {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background: #ff4081;
+      color: white;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      animation: slidein 0.5s ease forwards;
+      display: none;
+      z-index: 999;
+    }
+
+    @keyframes slidein {
+      from {
+        transform: translateX(150%);
+      }
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    .secret-letter {
+      display: none;
+      margin-top: 2rem;
+      background: #fff3f8;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 480px) {
+      h1, h2 {
+        font-size: 1.25rem;
+      }
+      p {
+        font-size: 0.95rem;
+      }
+      .container {
+        padding: 1rem;
+        margin: 1rem auto;
+      }
+      button {
+        font-size: 0.95rem;
+        padding: 0.75rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+
+<!-- Etapas -->
+<div class="container" id="step1">
+  <h1>Oi... Posso te falar umas coisinhas?</h1>
+  <button onclick="nextStep('step2a', true)">Fala</button>
+  <button onclick="nextStep('step2b', false)">Depende, você vai me irritar?</button>
+</div>
+
+<div class="container hidden" id="step2a">
+  <p>Eu queria começar dizendo... que eu fui um otario, um babaca e que eu me arrependo de tudo que fiz.</p>
+  <button onclick="nextStep('step3a', true)">Pode continuar</button>
+  <button onclick="nextStep('endA', false)">Não quero ouvir mais nada</button>
+</div>
+
+<div class="container hidden" id="step2b">
+  <p>Não quero te irritar. Só quero te falar palavras bonitas e te mostrar o quanto que eu me importo com você</p>
+  <button onclick="nextStep('step3b', true)">Tente</button>
+  <button onclick="nextStep('endB', false)">Não</button>
+</div>
+
+<div class="container hidden" id="step3a">
+  <p>Você é importante pra mim. E quando percebi o que causei, foi como levar um soco no peito, um tiro no pé, uma faca no coração. De mim mesmo ainda mais se tratando de você, alguém que eu amo e admiro a cada palavra e a cada gesto.</p>
+  <button onclick="nextStep('endC', true)">Continue</button>
+  <button onclick="nextStep('endD', false)">Tá bom</button>
+</div>
+
+<div class="container hidden" id="step3b">
+  <p>Você não merecia passar por isso. Eu realmente não deveria ter feito isso e foi bem otário da minha parte. Eu não tenho justificativa, mas quero mostrar o quanto me arrependo. Você é uma das pessoas mais importantes da minha vida e que eu admiro e amo. Faria questão de protegê-la com unhas e dentes se necessário, mas dessa vez eu fui o problema. Eu te admiro como um fã admira seu ídolo e saber que causei esse mal me dá vontade de chorar. Eu realmente senti vontade várias vezes. Eu me importo muito com você, mas eu coloquei a mim mesmo acima de tudo. Espero poder reverter isso e mostrar que não sou quem fui.</p>
+  <button onclick="nextStep('endE', true)">Espero que aprenda com seus erros.</button>
+  <button onclick="nextStep('endF', false)">Não é suficiente pra mim</button>
+</div>
+
+<!-- Finais -->
+<div class="container hidden" id="endA">
+  <h2>Obrigado por me escutar. Mesmo que seja só isso... já valeu de alguma coisa, eu me importo demais com você.</h2>
+</div>
+
+<div class="container hidden" id="endB">
+  <h2>Entendo, não te culpo. Eu só quero seu bem, mesmo que às vezes o mal seja eu. Me perdoe.</h2>
+</div>
+
+<div class="container hidden" id="endC">
+  <h2>Eu me importo demais com você mesmo que você esteja explodindo de raiva, triste demais, chateada... e que seja por culpa minha. Eu sei que devo te mostrar todo meu coração e amor, pois te admiro como ninguém. Errei com você, e sei que o perdão não é simples, mas prometo estar ao seu lado.</h2>
+</div>
+
+<div class="container hidden" id="endD">
+  <h2>Sei que nem sempre sou suficiente, nem sempre sou bom pra você. Sou complicado e penso pouco, mas me esforço pra sempre ser alguém que você queira ao seu lado e que esteja com você pra tudo.</h2>
+</div>
+
+<div class="container hidden" id="endE">
+  <h2>Obrigado por me ouvir. Quero te mostrar que me importo e quero consertar tudo de mal que te fiz. Já é mais do que eu merecia.</h2>
+</div>
+
+<div class="container hidden" id="endF">
+  <h2>Eu entendo. Mesmo que não seja suficiente, eu precisava tentar. Você é muito importante e valiosa pra mim.</h2>
+</div>
+
+<!-- Notificação e Carta -->
+<div class="notification" id="notif">✨ Carta especial desbloqueada!</div>
+<div class="container secret-letter" id="secretLetter">
+  <h2>Carta Extra</h2>
+  <p>Eu errei de uma forma que te machucou profundamente e isso pesa no meu coração a cada instante. Estou transbordando de arrependimento, com a dor de ter causado essa ferida em você pulsando em cada batida do meu ser.
+
+    Você é a pessoa mais importante da minha vida seu jeito, sua força e a maneira como ilumina tudo ao seu redor me enchem de uma admiração que é difícil de expressar. Não tenho justificativas para o que fiz, apenas um desejo ardente de mostrar, do fundo do meu coração, que o que sinto por você é genuíno e imenso.
+    
+    Sei que palavras podem soar insuficientes, mas quero que saiba que meu compromisso agora é ser alguém melhor e consertar todo o mal que te fiz pensar de mim e o mal estar que te causei, eu valorizo cada traço dessa pessoa incrível que você é. Desculpe por ter causado tanta dor. Estou disposto a aprender com este erro e me transformar para que, daqui para frente, o respeito e a admiração que sinto por você sejam a base de cada ação e de nossa relação.
+    
+    Com todo o meu amor e sincero arrependimento,</p>
+</div>
+
+<script>
+  let positivePathCount = 0;
+
+  function nextStep(nextId, isPositive) {
+    if (isPositive) positivePathCount++;
+
+    document.querySelectorAll(".container").forEach(c => c.classList.add("hidden"));
+    document.getElementById(nextId).classList.remove("hidden");
+
+    if (positivePathCount >= 3) {
+      document.getElementById("notif").style.display = "block";
+      document.getElementById("secretLetter").style.display = "block";
+      setTimeout(() => document.getElementById("notif").style.display = "none", 5000);
+    }
+  }
+
+  // Animação
+  const canvas = document.getElementById("bg");
+  const ctx = canvas.getContext("2d");
+  let w = window.innerWidth;
+  let h = window.innerHeight;
+  canvas.width = w;
+  canvas.height = h;
+
+  let particles = [];
+
+  function createRipple(x, y) {
+    for (let i = 0; i < 30; i++) {
+      particles.push({
+        x,
+        y,
+        vx: (Math.random() - 0.5) * 4,
+        vy: (Math.random() - 0.5) * 4,
+        alpha: 1,
+        radius: Math.random() * 4 + 2
+      });
+    }
+  }
+
+  canvas.addEventListener("mousemove", (e) => createRipple(e.clientX, e.clientY));
+  canvas.addEventListener("click", (e) => createRipple(e.clientX, e.clientY));
+
+  function animate() {
+    ctx.fillStyle = "rgba(255, 224, 240, 0.2)";
+    ctx.fillRect(0, 0, w, h);
+    particles.forEach((p, i) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.alpha -= 0.01;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 105, 180, ${p.alpha})`;
+      ctx.fill();
+      if (p.alpha <= 0) particles.splice(i, 1);
+    });
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  window.addEventListener("resize", () => {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  });
+</script>
+</body>
+</html>
